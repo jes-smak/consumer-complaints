@@ -1,0 +1,55 @@
+---
+title: "Consumers are COMPLAINING!"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(lubridate)
+library(janitor)
+library(readxl)
+library(writexl)
+library(DT)
+
+complaints <- readRDS("~/Downloads/april_12_hw/consumer-complaints/complaints.rds")
+
+complaints <- complaints %>% 
+  clean_names()
+
+```
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Most Common Complaints
+
+```{r}
+
+complaints %>%
+  count(product, sort = TRUE)
+```
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Companies being complained about MOST
+
+```{r}
+
+complaints %>%
+  count(company, sort = TRUE)
+```
+
+### Companies with complaints about Credit reporting, credit repair services, or other personal consumer reports
+
+```{r}
+
+complaints %>%
+  filter(product == "Credit reporting, credit repair services, or other personal consumer reports") %>% 
+  count(company, sort = TRUE)
+```
+
