@@ -1,0 +1,46 @@
+---
+title: "Consumer Complaints"
+author: "Jess Makler"
+date: "4/17/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate)
+library(janitor)
+library(readxl)
+library(writexl)
+
+complaints <- readRDS("~/Downloads/april_12_hw/consumer-complaints/complaints.rds")
+
+complaints <- complaints %>% 
+  clean_names()
+
+```
+
+## Top complaints
+
+
+```{r}
+
+complaints %>%
+  count(product, sort = TRUE)
+```
+
+## Most Common Company
+
+```{r}
+
+complaints %>%
+  count(company, sort = TRUE)
+```
+## Companies with complaints about Credit reporting, credit repair services, or other personal consumer reports
+
+```{r}
+
+complaints %>%
+  filter(product == "Credit reporting, credit repair services, or other personal consumer reports") %>% 
+  count(company, sort = TRUE)
+```
